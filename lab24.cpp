@@ -30,6 +30,69 @@ ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 
 //Write your code here
 
+ComplexNumber operator+(double s,const ComplexNumber &c){
+	return ComplexNumber(s+c.real,c.imag);
+}
+
+ComplexNumber operator-(double s,const ComplexNumber &c){
+	return ComplexNumber(s-c.real,-c.imag);
+}
+
+ComplexNumber operator*(double s,const ComplexNumber &c){
+	return ComplexNumber(s*c.real,c.imag*s);
+}
+
+ComplexNumber operator/(double s,const ComplexNumber &c){
+	double ka = (c.real*s);
+	double kb = (c.imag*-s);
+	double ra = pow(c.real,2)+pow(c.imag,2);
+	return ComplexNumber(ka/ra,kb/ra);
+}
+
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c){
+	return ComplexNumber((real*c.real)-(imag*c.imag), (real*c.imag)+(imag*c.real));
+}
+
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c){
+	double real1 = (real*c.real)+(imag*c.imag);
+	double imag2 = (imag*c.real)-(real*c.imag);
+	double ra = pow(c.real,2)+pow(c.imag,2);
+	return ComplexNumber(real1/ra,imag2/ra);
+}
+
+double ComplexNumber::abs(){
+	double size = sqrt(pow(real, 2)+ pow(imag, 2));
+	return size ;
+
+}
+ #define PI 3.14159265
+double ComplexNumber::angle(){
+	double Angle = atan(imag/real)*180/PI;
+	if(real < 0 && imag > 0)Angle = 180+Angle;
+	else if(real < 0 && imag < 0)Angle = Angle-180 ;
+	return Angle ;
+
+}
+
+ostream & operator <<(ostream &os, const ComplexNumber &c){
+	if(c.imag == 0)return os << c.real ;
+	else if(c.real == 0) return os << c.imag << "i" ;
+	else if(c.imag > 0) return os << c.real << "+" << c.imag << "i";
+	else if(c.imag < 0) return os << c.real <<c.imag << "i" ;
+	else return os << c.real ;
+}
+
+bool ComplexNumber::operator==(const ComplexNumber &c){
+if(real == c.real && imag == c.imag) return true ;
+else return false ;
+}
+
+bool operator==(double s,const ComplexNumber &c){
+if(s == c.real && 0 == c.imag) return true ;
+else return false ;
+}
+
+
 int main(){
 	ComplexNumber a(1.5,2),b(3.2,-2.5),c(-1,1.2);	
 	cout << a << "\n";
